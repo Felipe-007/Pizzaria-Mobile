@@ -1,9 +1,11 @@
 //tela de login
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
+import { AuthContext } from '../../contexts/AuthContext';
 
 export default function SignIn() {
+  const { user } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
