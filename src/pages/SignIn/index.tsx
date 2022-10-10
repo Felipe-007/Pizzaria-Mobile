@@ -5,17 +5,17 @@ import { styles } from './styles';
 import { AuthContext } from '../../contexts/AuthContext';
 
 export default function SignIn() {
-  const { user } = useContext(AuthContext);
+  const { signIn } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  function handleLogin(){
+  async function handleLogin(){
     if(email === '' || password === ''){  //não faz nada se não tiver nada digitado
       return;
     }
 
-    console.log('Dados digitados: ' + email)
+    await signIn({ email, password })
   }
 
   return (
