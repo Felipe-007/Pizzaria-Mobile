@@ -1,9 +1,21 @@
 //tela de login
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, Image, TextInput, TouchableOpacity } from 'react-native';
 import { styles } from './styles';
 
 export default function SignIn() {
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  function handleLogin(){
+    if(email === '' || password === ''){  //não faz nada se não tiver nada digitado
+      return;
+    }
+
+    console.log('Dados digitados: ' + email)
+  }
+
   return (
     <View style={styles.container}>
       <Image
@@ -16,6 +28,8 @@ export default function SignIn() {
           style={styles.input}
           placeholder="Digite o seu email"
           placeholderTextColor="#F0F0F0"
+          value={email}
+          onChangeText={setEmail}  //passa para o setEmail oq for digitado
         />
 
         <TextInput
@@ -23,9 +37,11 @@ export default function SignIn() {
           placeholder="Digite a sua senha"
           placeholderTextColor="#F0F0F0"
           secureTextEntry={true}
+          value={password}
+          onChangeText={setPassword}  //passa para o setPassword oq for digitado
         />
 
-        <TouchableOpacity style={styles.button}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
           <Text style={styles.buttonText}>Acessar</Text>
         </TouchableOpacity>
       </View>
