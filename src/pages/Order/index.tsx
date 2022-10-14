@@ -43,6 +43,16 @@ export default function Order() {
           value="1"
         />
       </View>
+
+      <View style={styles.actions}>
+        <TouchableOpacity style={styles.buttonAdd}>
+          <Text style={styles.buttonText}>+</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.button}>
+          <Text style={styles.buttonText}>Avançar</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
