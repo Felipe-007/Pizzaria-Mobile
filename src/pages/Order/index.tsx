@@ -93,21 +93,38 @@ export default function Order() {
     setCategorySelected(item);
   }
 
-  function handleChangeProduct(item: CategoryProps){
+  function handleChangeProduct(item: CategoryProps) {
     setProductSelected(item);
   }
 
+  //adicionando um produto nessa mesa
   async function handleAdd() {
-    console.log('cliclou')
+    const response = await api.post('/order/add', {  // faz a chamada, passando o order_id, product_id, amount
+      order_id: route.params?.order_id,
+      product_id: productSelected?.id,
+      amount: Number(amount)
+    })
+
+    let data = {
+      id: response.data.id,
+      product_id: productSelected?.id as string,
+      name: productSelected?.name as string,
+      amount: amount
+    }
+
+    setItems(oldArray => [...oldArray, data])  //coloca dentro da lista os items adicionados na mesa
   }
 
   return (
     <View style={styles.container}>
+
       <View style={styles.header}>
         <Text style={styles.title}>Mesa {route.params.number}</Text>
-        <TouchableOpacity onPress={handleCloseOrder}>
-          <Feather name="trash-2" size={28} color="#FF3F4b" />
-        </TouchableOpacity>
+        {items.length === 0 && ( //o icone de excluir da mesa desaparecerá quando um item for inserido na mesa
+          <TouchableOpacity onPress={handleCloseOrder}>
+            <Feather name="trash-2" size={28} color="#FF3F4b" />
+          </TouchableOpacity>
+        )}
       </View>
 
       {category.length !== 0 && (
@@ -167,7 +184,7 @@ export default function Order() {
         style={{ flex: 1, marginTop: 24 }}
         data={items}
         keyExtractor={(item) => item.id}
-        renderItem={ ({ item }) => <ListItem data={item} /> }
+        renderItem={({ item }) => <ListItem data={item} />}
       />
 
       <Modal
